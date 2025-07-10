@@ -467,6 +467,73 @@ body {
   100% { opacity: 1; }
 }
 
+@keyframes glitch {
+  0% {
+    clip-path: inset(40% 0 61% 0);
+    transform: translate(-2px, -2px);
+  }
+  20% {
+    clip-path: inset(92% 0 1% 0);
+    transform: translate(2px, 2px);
+  }
+  40% {
+    clip-path: inset(43% 0 1% 0);
+    transform: translate(-2px, 2px);
+  }
+  60% {
+    clip-path: inset(25% 0 58% 0);
+    transform: translate(2px, -2px);
+  }
+  80% {
+    clip-path: inset(54% 0 7% 0);
+    transform: translate(-2px, 2px);
+  }
+  100% {
+    clip-path: inset(58% 0 43% 0);
+    transform: translate(2px, -2px);
+  }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes text-shadow-pulse {
+  0% { text-shadow: 0 0 4px #00ff41, 0 0 8px #00ff41; }
+  50% { text-shadow: 0 0 16px #00ff41, 0 0 24px #00ff41, 0 0 32px #00ff41; }
+  100% { text-shadow: 0 0 4px #00ff41, 0 0 8px #00ff41; }
+}
+
+@keyframes terminal-boot {
+  0% { 
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    filter: blur(10px);
+  }
+  50% { 
+    opacity: 1;
+    filter: blur(5px);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes matrix-rain {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
 .animate-blink {
   animation: blink 1s infinite;
 }
@@ -485,6 +552,73 @@ body {
 
 .animate-fade-in {
   animation: fade-in 0.3s ease-in;
+}
+
+.animate-glitch {
+  animation: glitch 0.3s infinite;
+}
+
+.animate-scan-line {
+  animation: scan-line 8s linear infinite;
+}
+
+.animate-text-shadow-pulse {
+  animation: text-shadow-pulse 2s ease-in-out infinite;
+}
+
+.animate-terminal-boot {
+  animation: terminal-boot 1s ease-out;
+}
+
+.animate-typing {
+  animation: typing 3s steps(40, end);
+}
+
+/* Special Effects */
+.terminal-glow {
+  box-shadow: 
+    0 0 20px rgba(0, 255, 65, 0.5),
+    0 0 40px rgba(0, 255, 65, 0.3),
+    0 0 60px rgba(0, 255, 65, 0.1),
+    inset 0 0 20px rgba(0, 255, 65, 0.05);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px currentColor;
+}
+
+.terminal-scanline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 255, 65, 0.4),
+    transparent
+  );
+  animation: scan-line 8s linear infinite;
+  pointer-events: none;
+}
+
+.terminal-crt::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
 }
 
 /* Print Styles */
