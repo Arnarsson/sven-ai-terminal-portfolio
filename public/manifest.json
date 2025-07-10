@@ -1,0 +1,22 @@
+{
+  "name": "SVEN AI Terminal Portfolio",
+  "short_name": "SVEN AI",
+  "description": "Interactive AI consulting terminal showcasing HARKA business automation solutions",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ff41",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
