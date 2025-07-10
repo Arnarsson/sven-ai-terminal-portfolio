@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-import ChatInterface from '@/components/ChatInterface'
-import { AnalyticsProvider } from '@/components/AnalyticsProvider'
-import { Toaster } from '@/components/Toaster'
+// Removed unnecessary imports for cleaner terminal interface
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -105,23 +102,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} bg-terminal-dark-bg text-terminal-text font-mono min-h-screen overflow-x-hidden`}>
-        <AnalyticsProvider>
-          <Toaster>
-            <div className="container mx-auto max-w-full min-h-screen relative">
-              {/* Navigation Bar - Exact preservation */}
-              <Navigation />
-              
-              {/* Main Content */}
-              <main className="relative">
-                {children}
-              </main>
-              
-              {/* Chat Interface - Right Sidebar */}
-              <ChatInterface />
-            </div>
-          </Toaster>
-        </AnalyticsProvider>
+      <body className="bg-black text-green-400 font-mono min-h-screen overflow-hidden">
+        {children}
         
         {/* Performance monitoring script */}
         <script

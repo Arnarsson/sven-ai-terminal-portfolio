@@ -1,77 +1,135 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronRight } from 'lucide-react';
-
-interface Command {
-  input: string;
-  output: React.ReactNode;
-}
 
 export default function Terminal() {
   const [input, setInput] = useState('');
-  const [history, setHistory] = useState<Command[]>([
-    {
-      input: '',
-      output: (
-        <div className="text-matrix-primary">
-          <pre className="text-xs mb-2">
-{`   _____ _    _ ______ _   _          _____ 
-  / ___| |  | |  ____| \\ | |   /\\   |_   _|
-  \\___ \\ |  | | |__  |  \\| |  /  \\    | |  
-   ___) | |  | |  __| | . \` | / /\\ \\   | |  
-  |____/ \\__/ |____| |_|\\__| /_/  \\_\\ |_|  
-                                            `}
-          </pre>
-          <p className="mb-2">Welcome to SVEN AI Terminal - Your Gateway to AI Excellence</p>
-          <p className="text-sm text-gray-400">Type <span className="text-matrix-primary">'help'</span> for available commands</p>
-        </div>
-      )
-    }
-  ]);
+  const [history, setHistory] = useState<Array<{input: string, output: React.ReactNode}>>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    }
+  }, [history]);
+
   const commands = {
     help: () => (
-      <div className="space-y-1">
-        <p className="text-matrix-primary mb-2">Available commands:</p>
-        <p><span className="text-cyan-400">help</span> - Show this help message</p>
-        <p><span className="text-cyan-400">about</span> - Learn about SVEN AI</p>
-        <p><span className="text-cyan-400">services</span> - View our AI consulting services</p>
-        <p><span className="text-cyan-400">contact</span> - Get in touch with us</p>
-        <p><span className="text-cyan-400">chat</span> - Start AI chat assistant</p>
-        <p><span className="text-cyan-400">clear</span> - Clear terminal</p>
+      <div>
+        <div>Available commands:</div>
+        <div className="mt-2">
+          <div><span className="text-yellow-400">about</span> - Learn about me and my expertise</div>
+          <div><span className="text-yellow-400">skills</span> - View my technical skills</div>
+          <div><span className="text-yellow-400">projects</span> - Browse my portfolio projects</div>
+          <div><span className="text-yellow-400">experience</span> - View my work experience</div>
+          <div><span className="text-yellow-400">contact</span> - Get my contact information</div>
+          <div><span className="text-yellow-400">resume</span> - Download my resume</div>
+          <div><span className="text-yellow-400">clear</span> - Clear the terminal</div>
+        </div>
       </div>
     ),
     about: () => (
-      <div className="space-y-2">
-        <p className="text-matrix-primary">SVEN AI - Specialized Virtual Enhancement Network</p>
-        <p className="text-gray-300">Leading AI consulting firm helping Danish businesses transform through intelligent automation.</p>
-        <p className="text-gray-400 text-sm mt-2">Founded: 2023 | Location: Copenhagen, Denmark</p>
+      <div>
+        <div className="text-cyan-400 mb-2">SVEN ARNARSSON - AI CONSULTANT & BUSINESS AUTOMATION EXPERT</div>
+        <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+        <div className="mt-2">
+          <div>Transforming Danish businesses through intelligent automation.</div>
+          <div className="mt-2">• 48-hour implementation guarantee</div>
+          <div>• 300-2,281% typical ROI</div>
+          <div>• 100% success rate</div>
+          <div>• Founded HARKA.dk in 2023</div>
+        </div>
       </div>
     ),
-    services: () => (
-      <div className="space-y-2">
-        <p className="text-matrix-primary mb-2">Our Services:</p>
-        <p className="text-cyan-400">• AI Strategy Consulting</p>
-        <p className="text-cyan-400">• Custom AI Solutions</p>
-        <p className="text-cyan-400">• Process Automation</p>
-        <p className="text-cyan-400">• Data Analytics & Insights</p>
-        <p className="text-cyan-400">• AI Training & Workshops</p>
+    skills: () => (
+      <div>
+        <div className="text-cyan-400 mb-2">TECHNICAL EXPERTISE</div>
+        <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+        <div className="mt-2 grid grid-cols-2 gap-x-8">
+          <div>
+            <div className="text-yellow-400 mb-1">AI & Machine Learning:</div>
+            <div>• OpenAI GPT Integration</div>
+            <div>• Custom AI Solutions</div>
+            <div>• Process Automation</div>
+            <div>• Predictive Analytics</div>
+          </div>
+          <div>
+            <div className="text-yellow-400 mb-1">Business Solutions:</div>
+            <div>• Workflow Automation</div>
+            <div>• Data Analytics</div>
+            <div>• CRM Integration</div>
+            <div>• Performance Optimization</div>
+          </div>
+        </div>
+      </div>
+    ),
+    projects: () => (
+      <div>
+        <div className="text-cyan-400 mb-2">FEATURED PROJECTS</div>
+        <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+        <div className="mt-2 space-y-3">
+          <div>
+            <div className="text-yellow-400">[1] VMS Group Automation</div>
+            <div className="ml-4">• Result: 2,281% ROI achieved</div>
+            <div className="ml-4">• Tech: GPT-4, Python, API Integration</div>
+          </div>
+          <div>
+            <div className="text-yellow-400">[2] E-commerce AI Assistant</div>
+            <div className="ml-4">• Result: 67% reduction in support tickets</div>
+            <div className="ml-4">• Tech: Natural Language Processing, React</div>
+          </div>
+          <div>
+            <div className="text-yellow-400">[3] Manufacturing Process Optimizer</div>
+            <div className="ml-4">• Result: 42% efficiency improvement</div>
+            <div className="ml-4">• Tech: Machine Learning, IoT Sensors</div>
+          </div>
+        </div>
+      </div>
+    ),
+    experience: () => (
+      <div>
+        <div className="text-cyan-400 mb-2">PROFESSIONAL EXPERIENCE</div>
+        <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+        <div className="mt-2 space-y-3">
+          <div>
+            <div className="text-yellow-400">Founder & Lead AI Consultant - HARKA.dk</div>
+            <div className="text-gray-500">2023 - Present | Copenhagen, Denmark</div>
+            <div className="mt-1">• Delivered 50+ AI automation projects</div>
+            <div>• Maintained 100% client success rate</div>
+            <div>• Pioneered 48-hour delivery methodology</div>
+          </div>
+          <div>
+            <div className="text-yellow-400">Senior Solutions Architect - TechCorp DK</div>
+            <div className="text-gray-500">2020 - 2023 | Copenhagen, Denmark</div>
+            <div className="mt-1">• Led digital transformation initiatives</div>
+            <div>• Architected enterprise AI solutions</div>
+          </div>
+        </div>
       </div>
     ),
     contact: () => (
-      <div className="space-y-2">
-        <p className="text-matrix-primary">Contact Information:</p>
-        <p>Email: <span className="text-cyan-400">hej@sven-ai.dk</span></p>
-        <p>Phone: <span className="text-cyan-400">+45 28 49 39 11</span></p>
-        <p>LinkedIn: <span className="text-cyan-400">linkedin.com/company/sven-ai</span></p>
+      <div>
+        <div className="text-cyan-400 mb-2">CONTACT INFORMATION</div>
+        <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+        <div className="mt-2">
+          <div>📧 Email: <a href="mailto:svenarnarsson@gmail.com" className="text-blue-400 hover:underline">svenarnarsson@gmail.com</a></div>
+          <div>📱 Phone: <span className="text-blue-400">+45 28 49 39 11</span></div>
+          <div>💼 LinkedIn: <a href="https://linkedin.com/in/svenarnarsson" className="text-blue-400 hover:underline">linkedin.com/in/svenarnarsson</a></div>
+          <div>🌐 Website: <a href="https://harka.dk" className="text-blue-400 hover:underline">harka.dk</a></div>
+          <div>📍 Location: Copenhagen, Denmark</div>
+        </div>
       </div>
     ),
-    chat: () => (
-      <div className="text-yellow-400">
-        <p>Chat interface opening... (Feature coming soon)</p>
+    resume: () => (
+      <div>
+        <div className="text-yellow-400">Downloading resume...</div>
+        <div className="mt-2">Resume download initiated. Check your downloads folder.</div>
+        <div className="text-gray-500 text-sm mt-1">(In a real implementation, this would trigger a file download)</div>
       </div>
     ),
     clear: () => {
@@ -82,14 +140,19 @@ export default function Terminal() {
 
   const handleCommand = (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase();
-    let output: React.ReactNode;
+    let output: React.ReactNode = null;
 
     if (trimmedCmd in commands) {
       output = commands[trimmedCmd as keyof typeof commands]();
     } else if (trimmedCmd === '') {
       output = null;
     } else {
-      output = <p className="text-red-400">Command not found: {cmd}. Type 'help' for available commands.</p>;
+      output = (
+        <div>
+          <span className="text-red-400">bash: {cmd}: command not found</span>
+          <div className="text-gray-500 mt-1">Type \'help\' for available commands</div>
+        </div>
+      );
     }
 
     if (trimmedCmd !== 'clear') {
@@ -103,56 +166,71 @@ export default function Terminal() {
     handleCommand(input);
   };
 
-  useEffect(() => {
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-    }
-  }, [history]);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
   return (
-    <div className="bg-black/95 rounded-lg border border-matrix-primary/20 shadow-2xl overflow-hidden">
-      <div className="bg-matrix-primary/10 px-4 py-2 flex items-center justify-between border-b border-matrix-primary/20">
-        <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
-        </div>
-        <span className="text-xs font-mono text-matrix-primary">sven@ai-terminal:~$</span>
-      </div>
-      
-      <div 
-        ref={terminalRef}
-        className="p-4 h-96 overflow-y-auto font-mono text-sm"
-        onClick={() => inputRef.current?.focus()}
-      >
-        {history.map((cmd, index) => (
-          <div key={index} className="mb-2">
-            {cmd.input && (
-              <div className="flex items-center text-gray-300">
-                <ChevronRight className="w-4 h-4 text-matrix-primary mr-2" />
-                <span>{cmd.input}</span>
-              </div>
-            )}
-            {cmd.output && <div className="ml-6 mt-1">{cmd.output}</div>}
+    <div className="h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-4xl h-[600px] bg-gray-900 rounded-lg shadow-2xl overflow-hidden">
+        {/* Terminal Header */}
+        <div className="bg-gray-800 px-4 py-2 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
           </div>
-        ))}
+          <div className="text-gray-400 text-sm">sven@harka:~</div>
+          <div className="w-16"></div>
+        </div>
         
-        <form onSubmit={handleSubmit} className="flex items-center text-gray-300">
-          <ChevronRight className="w-4 h-4 text-matrix-primary mr-2" />
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="flex-1 bg-transparent outline-none"
-            spellCheck={false}
-            autoComplete="off"
-          />
-        </form>
+        {/* Terminal Body */}
+        <div 
+          ref={terminalRef}
+          className="h-full p-4 overflow-y-auto font-mono text-sm"
+          onClick={() => inputRef.current?.focus()}
+        >
+          {/* Welcome Message */}
+          <div className="mb-4">
+            <pre className="text-green-400 text-xs">
+{`
+███████╗██╗   ██╗███████╗███╗   ██╗     █████╗ ██╗
+██╔════╝██║   ██║██╔════╝████╗  ██║    ██╔══██╗██║
+███████╗██║   ██║█████╗  ██╔██╗ ██║    ███████║██║
+╚════██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║    ██╔══██║██║
+███████║ ╚████╔╝ ███████╗██║ ╚████║    ██║  ██║██║
+╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝    ╚═╝  ╚═╝╚═╝
+`}
+            </pre>
+            <div className="text-green-400 mt-2">Welcome to SVEN AI Terminal v4.0.0</div>
+            <div className="text-gray-400">AI Consulting & Business Automation Expert</div>
+            <div className="text-gray-400 mt-2">Type <span className="text-yellow-400">\'help\'</span> to see available commands</div>
+          </div>
+          
+          {/* Command History */}
+          {history.map((entry, index) => (
+            <div key={index} className="mb-3">
+              {entry.input && (
+                <div className="flex items-start">
+                  <span className="text-green-400 mr-2">sven@harka:~$</span>
+                  <span className="text-gray-200">{entry.input}</span>
+                </div>
+              )}
+              {entry.output && <div className="mt-1 text-gray-300">{entry.output}</div>}
+            </div>
+          ))}
+          
+          {/* Input Line */}
+          <form onSubmit={handleSubmit} className="flex items-start">
+            <span className="text-green-400 mr-2">sven@harka:~$</span>
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="flex-1 bg-transparent outline-none text-gray-200"
+              spellCheck={false}
+              autoComplete="off"
+            />
+            <span className="animate-blink">▋</span>
+          </form>
+        </div>
       </div>
     </div>
   );
