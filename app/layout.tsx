@@ -107,21 +107,20 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-terminal-dark-bg text-terminal-text font-mono min-h-screen overflow-x-hidden`}>
         <AnalyticsProvider>
-          <div className="container mx-auto max-w-full min-h-screen relative">
-            {/* Navigation Bar - Exact preservation */}
-            <Navigation />
-            
-            {/* Main Content */}
-            <main className="relative">
-              {children}
-            </main>
-            
-            {/* Chat Interface - Right Sidebar */}
-            <ChatInterface />
-            
-            {/* Toast Notifications */}
-            <Toaster />
-          </div>
+          <Toaster>
+            <div className="container mx-auto max-w-full min-h-screen relative">
+              {/* Navigation Bar - Exact preservation */}
+              <Navigation />
+              
+              {/* Main Content */}
+              <main className="relative">
+                {children}
+              </main>
+              
+              {/* Chat Interface - Right Sidebar */}
+              <ChatInterface />
+            </div>
+          </Toaster>
         </AnalyticsProvider>
         
         {/* Performance monitoring script */}
